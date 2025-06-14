@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gerador de Página de Curso - Futuro.Digital</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7fc;
+        margin: 0;
+        padding: 20px;
+    }
+    .container {
+        max-width: 1200px;
+        background: white;
+        margin: auto;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    input, textarea {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    label {
+        font-weight: bold;
+    }
+    button {
+        padding: 10px;
+        background-color: #0077c8;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    button:hover {
+        background-color: #005fa3;
+    }
+    .copy-btn {
+        background-color: #28a745;
+        margin-top: 10px;
+    }
+    .copy-btn:hover {
+        background-color: #218838;
+    }
+    pre {
+        background: #272822;
+        border-radius: 8px;
+        padding: 15px;
+        max-height: 500px;
+        overflow: auto;
+    }
+    .modulo-item {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    .modulo-item input {
+        flex: 1;
+    }
+    .modulo-item button {
+        background: red;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Gerador de Página de Curso - Futuro.Digital</h1>
+
+    <label>Título do Curso</label>
+    <input id="titulo" value="Curso Lorem Ipsum Avançado">
+
+    <label>Descrição do Curso</label>
+    <textarea id="descricao">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</textarea>
+
+    <label>Modalidade e Carga Horária</label>
+    <input id="modalidade" value="Modalidade: EAD | Carga Horária: 120h">
+
+    <h3>O que você vai aprender (Cards)</h3>
+    <label>Card 1 - Título</label><input id="card1_titulo" value="Fundamentos de Lorem">
+    <label>Card 1 - Texto</label><input id="card1_texto" value="Aprenda os princípios básicos do Lorem Ipsum.">
+
+    <label>Card 2 - Título</label><input id="card2_titulo" value="Desenvolvimento Ipsum">
+    <label>Card 2 - Texto</label><input id="card2_texto" value="Domine técnicas de geração e manipulação de textos.">
+
+    <label>Card 3 - Título</label><input id="card3_titulo" value="Aplicações Práticas">
+    <label>Card 3 - Texto</label><input id="card3_texto" value="Explore como usar Lorem Ipsum em projetos.">
+
+    <h3>Módulos e Competências</h3>
+    <div id="modulosContainer">
+        <div class="modulo-item">
+            <input type="text" value="Introdução ao Lorem Ipsum">
+            <button type="button" onclick="removerModulo(this)">Remover</button>
+        </div>
+    </div>
+    <button type="button" onclick="adicionarModulo()">Adicionar Disciplina</button>
+
+    <h3>Pré-requisitos</h3>
+    <div id="preContainer">
+        <div class="modulo-item">
+            <input type="text" value="Ensino Médio Completo">
+            <button type="button" onclick="removerPre(this)">Remover</button>
+        </div>
+    </div>
+    <button type="button" onclick="adicionarPre()">Adicionar Pré-requisito</button>
+
+    <label>Para quem é o curso</label>
+    <textarea id="publico">Profissionais, estudantes e interessados que desejam se aprofundar em textos simulados.</textarea>
+
+    <label>Como Funciona (digite cada item separado por ponto e vírgula)</label>
+    <textarea id="como">Aulas 100% online; Plataforma intuitiva; Suporte ao aluno; Avaliações periódicas</textarea>
+
+    <label>Cenário e Mercado</label>
+    <textarea id="mercado">O mercado de design e desenvolvimento demanda profissionais capacitados no uso de conteúdos simulados para prototipação.</textarea>
+
+    <label>Link do WhatsApp</label>
+    <input id="whatsapp" value="https://api.whatsapp.com/send?phone=5521999999999&text=Ol%C3%A1,%20gostaria%20de%20tirar%20d%C3%BAvidas">
+
+    <button onclick="gerar()">Gerar Código</button>
+
+    <pre><code id="resultado" class="language-html"></code></pre>
+    <button class="copy-btn" onclick="copiar()">Copiar Código</button>
+</div>
+
+<script>
+function adicionarModulo() {
+    const container = document.getElementById('modulosContainer');
+    const div = document.createElement('div');
+    div.className = 'modulo-item';
+    div.innerHTML = `
+        <input type="text" placeholder="Digite a disciplina">
+        <button type="button" onclick="removerModulo(this)">Remover</button>
+    `;
+    container.appendChild(div);
+}
+
+function removerModulo(button) {
+    button.parentElement.remove();
+}
+
+function adicionarPre() {
+    const container = document.getElementById('preContainer');
+    const div = document.createElement('div');
+    div.className = 'modulo-item';
+    div.innerHTML = `
+        <input type="text" placeholder="Digite um pré-requisito">
+        <button type="button" onclick="removerPre(this)">Remover</button>
+    `;
+    container.appendChild(div);
+}
+
+function removerPre(button) {
+    button.parentElement.remove();
+}
+
+function gerar() {
+    const titulo = document.getElementById('titulo').value;
+    const descricao = document.getElementById('descricao').value;
+    const modalidade = document.getElementById('modalidade').value;
+
+    const card1 = `<div class="ut white-col min-322"><div class="ratio-21 bg-python-bg"></div><p class="paragraph"><strong>${document.getElementById('card1_titulo').value}</strong></p><p class="paragraph">${document.getElementById('card1_texto').value}</p></div>`;
+    const card2 = `<div class="ut white-col min-322"><div class="ratio-21 bg-python-portal"></div><p class="paragraph"><strong>${document.getElementById('card2_titulo').value}</strong></p><p class="paragraph">${document.getElementById('card2_texto').value}</p></div>`;
+    const card3 = `<div class="ut white-col min-322"><div class="ratio-21 bg-portals"></div><p class="paragraph"><strong>${document.getElementById('card3_titulo').value}</strong></p><p class="paragraph">${document.getElementById('card3_texto').value}</p></div>`;
+
+    const modulosInputs = document.querySelectorAll('#modulosContainer input');
+    const modulos = Array.from(modulosInputs)
+        .map(input => `<p class="tablelike">${input.value.trim()}</p>`)
+        .join('');
+
+    const preInputs = document.querySelectorAll('#preContainer input');
+    const pre = Array.from(preInputs)
+        .map(input => `<div class="flex gap-10"><div class="checkicon">✅</div><p class="paragraph">${input.value.trim()}</p></div>`)
+        .join('');
+
+    const publico = document.getElementById('publico').value;
+    const como = document.getElementById('como').value.split(";").map(i => `<li>✔ ${i.trim()}</li>`).join("");
+    const mercado = document.getElementById('mercado').value;
+    const whatsapp = document.getElementById('whatsapp').value;
+
+    const resultado = `
+<section class="hcd">
+    <div class="spacing"></div>
+
+    <div class="row mobile-col">
+        <div class="half">
+            <h2>Sobre o Curso</h2>
+            <p class="paragraph">${descricao}</p>
+        </div>
+        <div class="half">
+            <h2>Modalidade e Carga Horária</h2>
+            <p class="paragraph">${modalidade}</p>
+        </div>
+    </div>
+
+    <h2>O que você vai aprender</h2>
+    <div class="spacing"></div>
+    <div class="row gap-15 mobile-col">
+        ${card1}
+        ${card2}
+        ${card3}
+    </div>
+
+    <div class="spacing"></div>
+    <h2 class="barless">Módulos e Competências Principais</h2>
+    <div class="row mobile-col">
+        <div class="half">${modulos}</div>
+        <div class="half">
+            <div class="white-col">
+                <h2 class="barless">Pré-requisitos</h2>
+                ${pre}
+                <div class="spacing"></div>
+                <h2 class="barless">Para quem é o curso?</h2>
+                <p class="paragraph">${publico}</p>
+            </div>
+            <div class="spacing"></div>
+            <div class="white-col">
+                <h2 class="barless">Como Funciona?</h2>
+                <ul class="paragraph">${como}</ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="bar"></div>
+
+    <div class="row mobile-col">
+        <div class="col half">
+            <h2>Cenário e Mercado da Profissão</h2>
+            <p class="paragraph">${mercado}</p>
+        </div>
+        <div class="col half red-row">
+            <p class="subtitle"><span>Dúvidas? Fale Conosco!</span></p>
+            <p>Precisa de mais informações ou ajuda para se inscrever? Fale com nossos consultores do Futuro.Digital.</p>
+            <a class="subtitle font-base" href="${whatsapp}">Mais Informações - Futuro.Digital</a>
+        </div>
+    </div>
+
+    <div class="row mobile-col">
+        <div class="half">
+            <img src="https://tewbhv.vtexassets.com/assets/vtex.file-manager-graphql/images/2a0e0f56-1b1e-4b1a-b56e-ec109c0de36c___452922f1beb77c17e91283a16e855bb5.png" alt="Imagem relacionada ao curso" />
+        </div>
+
+        <div class="half white-col">
+            <h2 class="barless">Política de Descontos</h2>
+
+            <div class="flex gap-10">
+                <p class="subtitle"><span>30%</span></p>
+                <p class="paragraph green">Para colaboradores do Sistema Indústria (SESI, SENAI, IEL e Federações) e seus dependentes.</p>
+            </div>
+
+            <div class="flex gap-10">
+                <p class="subtitle"><span>10%</span></p>
+                <p class="paragraph green">Para egressos do SENAI.</p>
+            </div>
+
+            <div class="flex gap-10">
+                <p class="subtitle"><span>5%</span></p>
+                <p class="paragraph green">Para pagamento à vista do semestre.</p>
+            </div>
+
+            <p class="paragraph small">*Descontos não acumulativos.</p>
+        </div>
+    </div>
+</section>`;
+
+    const code = document.getElementById('resultado');
+    code.textContent = resultado.trim();
+    Prism.highlightElement(code);
+}
+
+function copiar() {
+    const text = document.getElementById('resultado').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        alert("Código copiado!");
+    });
+}
+</script>
+
+</body>
+</html>
