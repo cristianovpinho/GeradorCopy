@@ -46,7 +46,6 @@
     }
     .copy-btn {
         background-color: #28a745;
-        margin-top: 10px;
     }
     .copy-btn:hover {
         background-color: #218838;
@@ -74,6 +73,11 @@
         border-radius: 4px;
         cursor: pointer;
     }
+    .button-group {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
 </style>
 </head>
 <body>
@@ -85,7 +89,7 @@
     <input id="titulo" value="Curso Lorem Ipsum Avançado">
 
     <label>Descrição do Curso</label>
-    <textarea id="descricao">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</textarea>
+    <textarea id="descricao">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</textarea>
 
     <label>Modalidade e Carga Horária</label>
     <input id="modalidade" value="Modalidade: EAD | Carga Horária: 120h">
@@ -117,6 +121,7 @@
         </div>
     </div>
     <button type="button" onclick="adicionarPre()">Adicionar Pré-requisito</button>
+    <br>
 
     <label>Para quem é o curso</label>
     <textarea id="publico">Profissionais, estudantes e interessados que desejam se aprofundar em textos simulados.</textarea>
@@ -130,10 +135,12 @@
     <label>Link do WhatsApp</label>
     <input id="whatsapp" value="https://api.whatsapp.com/send?phone=5521999999999&text=Ol%C3%A1,%20gostaria%20de%20tirar%20d%C3%BAvidas">
 
-    <button onclick="gerar()">Gerar Código</button>
+    <div class="button-group">
+        <button onclick="gerar()">Gerar Código</button>
+        <button class="copy-btn" onclick="copiar()" id="copyButton" style="display: none;">Copiar Código</button>
+    </div>
 
     <pre><code id="resultado" class="language-html"></code></pre>
-    <button class="copy-btn" onclick="copiar()">Copiar Código</button>
 </div>
 
 <script>
@@ -215,6 +222,9 @@ function gerar() {
     </div>
 
     <div class="spacing"></div>
+
+    <div class="ratio-28 bg-eletroeletronica"></div>
+
     <h2 class="barless">Módulos e Competências Principais</h2>
     <div class="row mobile-col">
         <div class="half">${modulos}</div>
@@ -279,6 +289,8 @@ function gerar() {
     const code = document.getElementById('resultado');
     code.textContent = resultado.trim();
     Prism.highlightElement(code);
+
+    document.getElementById('copyButton').style.display = 'inline-block';
 }
 
 function copiar() {
