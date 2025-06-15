@@ -10,17 +10,43 @@
 <style>
     body {
         font-family: Arial, sans-serif;
-        background-color: #f4f7fc;
+        background-color: #f2f4f8;
         margin: 0;
+        padding: 0;
+    }
+    .header {
+        background-color: #0077c8;
+        color: white;
         padding: 20px;
+        text-align: center;
+        font-size: 24px;
     }
     .container {
         max-width: 1200px;
-        background: white;
-        margin: auto;
+        margin: 20px auto;
         padding: 20px;
+        background: white;
         border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .section {
+        background-color: #fff;
+        padding: 15px 20px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+    }
+    .section h2 {
+        margin-top: 0;
+        color: #0077c8;
+    }
+    .row {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    .half {
+        flex: 1 1 45%;
     }
     input, textarea {
         width: 100%;
@@ -28,12 +54,13 @@
         margin: 5px 0 15px;
         border: 1px solid #ccc;
         border-radius: 5px;
+        background: #f9f9f9;
     }
     label {
         font-weight: bold;
     }
     button {
-        padding: 10px;
+        padding: 10px 20px;
         background-color: #0077c8;
         color: white;
         border: none;
@@ -50,90 +77,155 @@
     .copy-btn:hover {
         background-color: #218838;
     }
+    .button-group {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
     pre {
         background: #272822;
+        color: #f8f8f2;
         border-radius: 8px;
         padding: 15px;
         max-height: 500px;
         overflow: auto;
     }
-    .modulo-item {
-        display: flex;
-        gap: 10px;
+    .card {
+        background: #f9f9f9;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
         margin-bottom: 10px;
     }
-    .modulo-item input {
-        flex: 1;
-    }
-    .modulo-item button {
-        background: red;
+    button.remover {
+        background-color: #f87171;
         color: white;
         border: none;
         padding: 5px 10px;
         border-radius: 4px;
         cursor: pointer;
+        transition: background-color 0.3s;
     }
-    .button-group {
-        display: flex;
-        gap: 10px;
-        margin-top: 10px;
+    button.remover:hover {
+        background-color: #ef4444;
+    }
+    /* 🎥 Responsividade do vídeo */
+    .video-container {
+        position: relative;
+        padding-bottom: 56.25%;
+        padding-top: 25px;
+        height: 0;
+        overflow: hidden;
+    }
+    .video-container iframe,
+    .video-container embed,
+    .video-container object {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
 </style>
 </head>
 <body>
 
+<div class="header">
+    Gerador de Página de Curso - Futuro.Digital
+</div>
+
 <div class="container">
-    <h1>Gerador de Página de Curso - Futuro.Digital</h1>
 
-    <label>Título do Curso</label>
-    <input id="titulo" value="Curso Lorem Ipsum Avançado">
-
-    <label>Descrição do Curso</label>
-    <textarea id="descricao">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</textarea>
-
-    <label>Modalidade e Carga Horária</label>
-    <input id="modalidade" value="Modalidade: EAD | Carga Horária: 120h">
-
-    <h3>O que você vai aprender (Cards)</h3>
-    <label>Card 1 - Título</label><input id="card1_titulo" value="Fundamentos de Lorem">
-    <label>Card 1 - Texto</label><input id="card1_texto" value="Aprenda os princípios básicos do Lorem Ipsum.">
-
-    <label>Card 2 - Título</label><input id="card2_titulo" value="Desenvolvimento Ipsum">
-    <label>Card 2 - Texto</label><input id="card2_texto" value="Domine técnicas de geração e manipulação de textos.">
-
-    <label>Card 3 - Título</label><input id="card3_titulo" value="Aplicações Práticas">
-    <label>Card 3 - Texto</label><input id="card3_texto" value="Explore como usar Lorem Ipsum em projetos.">
-
-    <h3>Módulos e Competências</h3>
-    <div id="modulosContainer">
-        <div class="modulo-item">
-            <input type="text" value="Introdução ao Lorem Ipsum">
-            <button type="button" onclick="removerModulo(this)">Remover</button>
+    <div class="section">
+        <h2>Informações do Curso</h2>
+        <div class="row">
+            <div class="half">
+                <label>Título do Curso</label>
+                <input id="titulo" value="Curso Lorem Ipsum Avançado">
+                <label>Descrição</label>
+                <textarea id="descricao">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</textarea>
+            </div>
+            <div class="half">
+                <label>Modalidade e Carga Horária</label>
+                <input id="modalidade" value="Modalidade: EAD | Carga Horária: 120h">
+            </div>
         </div>
     </div>
-    <button type="button" onclick="adicionarModulo()">Adicionar Disciplina</button>
 
-    <h3>Pré-requisitos</h3>
-    <div id="preContainer">
-        <div class="modulo-item">
-            <input type="text" value="Ensino Médio Completo">
-            <button type="button" onclick="removerPre(this)">Remover</button>
+    <div class="section">
+        <h2>O que você vai aprender</h2>
+        <div class="row">
+            <div class="half">
+                <label>Card 1 - Título</label>
+                <input id="card1_titulo" value="Fundamentos de Lorem">
+                <label>Card 1 - Texto</label>
+                <input id="card1_texto" value="Aprenda os princípios básicos do Lorem Ipsum.">
+            </div>
+            <div class="half">
+                <label>Card 2 - Título</label>
+                <input id="card2_titulo" value="Desenvolvimento Ipsum">
+                <label>Card 2 - Texto</label>
+                <input id="card2_texto" value="Domine técnicas de geração e manipulação de textos.">
+            </div>
+        </div>
+        <label>Card 3 - Título</label>
+        <input id="card3_titulo" value="Aplicações Práticas">
+        <label>Card 3 - Texto</label>
+        <input id="card3_texto" value="Explore como usar Lorem Ipsum em projetos.">
+    </div>
+
+    <div class="section">
+        <h2>Vídeo (Opcional)</h2>
+        <label>Código Embed do Vídeo (ex: &lt;iframe ...&gt;)</label>
+        <textarea id="embedVideo" placeholder="Cole aqui o código embed do YouTube ou Vimeo"></textarea>
+    </div>
+
+    <div class="section">
+        <h2>Módulos e Competências</h2>
+        <div id="modulosContainer">
+            <div class="card">
+                <input type="text" value="Introdução ao Lorem Ipsum">
+                <button type="button" class="remover" onclick="removerModulo(this)">Remover</button>
+            </div>
+        </div>
+        <button type="button" onclick="adicionarModulo()">Adicionar Disciplina</button>
+    </div>
+
+    <div class="section">
+        <h2>Pré-requisitos e Público</h2>
+        <div class="row">
+            <div class="half">
+                <label>Pré-requisitos</label>
+                <div id="preContainer">
+                    <div class="card">
+                        <input type="text" value="Ensino Médio Completo">
+                        <button type="button" class="remover" onclick="removerPre(this)">Remover</button>
+                    </div>
+                </div>
+                <button type="button" onclick="adicionarPre()">Adicionar Pré-requisito</button>
+                <br>
+            </div>
+            <div class="half">
+                <label>Para quem é o curso</label>
+                <textarea id="publico">Profissionais, estudantes e interessados.</textarea>
+            </div>
         </div>
     </div>
-    <button type="button" onclick="adicionarPre()">Adicionar Pré-requisito</button>
-    <br>
 
-    <label>Para quem é o curso</label>
-    <textarea id="publico">Profissionais, estudantes e interessados que desejam se aprofundar em textos simulados.</textarea>
+    <div class="section">
+        <h2>Como Funciona</h2>
+        <textarea id="como">Aulas 100% online; Plataforma intuitiva; Suporte ao aluno; Avaliações periódicas</textarea>
+    </div>
 
-    <label>Como Funciona (digite cada item separado por ponto e vírgula)</label>
-    <textarea id="como">Aulas 100% online; Plataforma intuitiva; Suporte ao aluno; Avaliações periódicas</textarea>
+    <div class="section">
+        <h2>Cenário e Mercado</h2>
+        <textarea id="mercado">O mercado exige profissionais capacitados.</textarea>
+    </div>
 
-    <label>Cenário e Mercado</label>
-    <textarea id="mercado">O mercado de design e desenvolvimento demanda profissionais capacitados no uso de conteúdos simulados para prototipação.</textarea>
-
-    <label>Link do WhatsApp</label>
-    <input id="whatsapp" value="https://api.whatsapp.com/send?phone=5521999999999&text=Ol%C3%A1,%20gostaria%20de%20tirar%20d%C3%BAvidas">
+    <div class="section">
+        <h2>Link do WhatsApp</h2>
+        <input id="whatsapp" value="https://api.whatsapp.com/send?phone=5521999999999&text=Ol%C3%A1,%20gostaria%20de%20tirar%20d%C3%BAvidas">
+    </div>
 
     <div class="button-group">
         <button onclick="gerar()">Gerar Código</button>
@@ -141,16 +233,17 @@
     </div>
 
     <pre><code id="resultado" class="language-html"></code></pre>
+
 </div>
 
 <script>
 function adicionarModulo() {
     const container = document.getElementById('modulosContainer');
     const div = document.createElement('div');
-    div.className = 'modulo-item';
+    div.className = 'card';
     div.innerHTML = `
         <input type="text" placeholder="Digite a disciplina">
-        <button type="button" onclick="removerModulo(this)">Remover</button>
+        <button type="button" class="remover" onclick="removerModulo(this)">Remover</button>
     `;
     container.appendChild(div);
 }
@@ -162,10 +255,10 @@ function removerModulo(button) {
 function adicionarPre() {
     const container = document.getElementById('preContainer');
     const div = document.createElement('div');
-    div.className = 'modulo-item';
+    div.className = 'card';
     div.innerHTML = `
         <input type="text" placeholder="Digite um pré-requisito">
-        <button type="button" onclick="removerPre(this)">Remover</button>
+        <button type="button" class="remover" onclick="removerPre(this)">Remover</button>
     `;
     container.appendChild(div);
 }
@@ -178,6 +271,7 @@ function gerar() {
     const titulo = document.getElementById('titulo').value;
     const descricao = document.getElementById('descricao').value;
     const modalidade = document.getElementById('modalidade').value;
+    const embedVideo = document.getElementById('embedVideo').value.trim();
 
     const card1 = `<div class="ut white-col min-322"><div class="ratio-21 bg-python-bg"></div><p class="paragraph"><strong>${document.getElementById('card1_titulo').value}</strong></p><p class="paragraph">${document.getElementById('card1_texto').value}</p></div>`;
     const card2 = `<div class="ut white-col min-322"><div class="ratio-21 bg-python-portal"></div><p class="paragraph"><strong>${document.getElementById('card2_titulo').value}</strong></p><p class="paragraph">${document.getElementById('card2_texto').value}</p></div>`;
@@ -197,6 +291,16 @@ function gerar() {
     const como = document.getElementById('como').value.split(";").map(i => `<li>✔ ${i.trim()}</li>`).join("");
     const mercado = document.getElementById('mercado').value;
     const whatsapp = document.getElementById('whatsapp').value;
+
+    const videoOuImagem = embedVideo
+        ? `<div class="video-container">${embedVideo}</div>`
+        : `<div class="ratio-28 bg-eletroeletronica" style="
+            background-size: cover;
+            background-position-y: center;
+            background-image: url(https://tewbhv.vtexassets.com/assets/vtex.file-manager-graphql/images/113ca706-ad12-44e5-afe2-b89e8810a150___fcb9accf67b1867a1a058ee9664ba599.png);
+            width: 100%;
+            height: 300px;">
+        </div>`;
 
     const resultado = `
 <section class="hcd">
@@ -222,8 +326,9 @@ function gerar() {
     </div>
 
     <div class="spacing"></div>
+    ${videoOuImagem}
+	<div class="spacing"></div>
 
-    <div class="ratio-28 bg-eletroeletronica"></div>
 
     <h2 class="barless">Módulos e Competências Principais</h2>
     <div class="row mobile-col">
@@ -255,33 +360,6 @@ function gerar() {
             <p class="subtitle"><span>Dúvidas? Fale Conosco!</span></p>
             <p>Precisa de mais informações ou ajuda para se inscrever? Fale com nossos consultores do Futuro.Digital.</p>
             <a class="subtitle font-base" href="${whatsapp}">Mais Informações - Futuro.Digital</a>
-        </div>
-    </div>
-
-    <div class="row mobile-col">
-        <div class="half">
-            <img src="https://tewbhv.vtexassets.com/assets/vtex.file-manager-graphql/images/2a0e0f56-1b1e-4b1a-b56e-ec109c0de36c___452922f1beb77c17e91283a16e855bb5.png" alt="Imagem relacionada ao curso" />
-        </div>
-
-        <div class="half white-col">
-            <h2 class="barless">Política de Descontos</h2>
-
-            <div class="flex gap-10">
-                <p class="subtitle"><span>30%</span></p>
-                <p class="paragraph green">Para colaboradores do Sistema Indústria (SESI, SENAI, IEL e Federações) e seus dependentes.</p>
-            </div>
-
-            <div class="flex gap-10">
-                <p class="subtitle"><span>10%</span></p>
-                <p class="paragraph green">Para egressos do SENAI.</p>
-            </div>
-
-            <div class="flex gap-10">
-                <p class="subtitle"><span>5%</span></p>
-                <p class="paragraph green">Para pagamento à vista do semestre.</p>
-            </div>
-
-            <p class="paragraph small">*Descontos não acumulativos.</p>
         </div>
     </div>
 </section>`;
